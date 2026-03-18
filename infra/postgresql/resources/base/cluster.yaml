@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-shared
+  namespace: postgresql
+spec:
+  instances: ${POSTGRESQL_INSTANCES}
+  storage:
+    size: ${POSTGRESQL_STORAGE_SIZE}
+  managed:
+    roles: []
+    # roles 为空，由各服务的 overlay 通过 managed.yaml patch 注入

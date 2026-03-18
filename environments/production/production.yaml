@@ -1,0 +1,38 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: production-config
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./environments/production/config
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: production-apps
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./environments/production/apps
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: production-infra
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./environments/production/infra
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

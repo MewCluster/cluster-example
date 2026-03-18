@@ -1,0 +1,5 @@
+# 此文件由 Flux 自动生成，请勿手动修改。
+# 生成命令：
+#   flux install --export > gotk-components.yaml
+# 或从 GitHub Release 直接下载：
+#   https://github.com/fluxcd/flux2/releases/latest/download/install.yaml
