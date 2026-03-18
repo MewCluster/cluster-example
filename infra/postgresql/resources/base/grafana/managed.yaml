@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-shared
+  namespace: postgresql
+$patch: merge
+spec:
+  managed:
+    roles:
+      - name: grafana
+        ensure: present
+        login: true
+        passwordSecret:
+          name: pg-grafana-credentials

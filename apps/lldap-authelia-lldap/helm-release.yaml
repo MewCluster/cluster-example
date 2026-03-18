@@ -1,0 +1,34 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: lldap
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://nitnelave.github.io/lldap
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: lldap
+  namespace: flux-system
+spec:
+  interval: 10m
+  targetNamespace: lldap
+  chart:
+    spec:
+      chart: lldap
+      version: ">=0.1.0 <1.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: lldap
+        namespace: flux-system
+  values:
+    env:
+      LLDAP_HTTP_URL: https://lldap.${DOMAIN}
+    envFrom:
+      - secretRef:
+          name: lldap-credentials
+    persistence:
+      enabled: true
+      size: 1Gi

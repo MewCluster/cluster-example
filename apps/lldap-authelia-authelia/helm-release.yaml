@@ -1,0 +1,37 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: authelia
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://charts.authelia.com
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: flux-system
+spec:
+  interval: 10m
+  targetNamespace: lldap-stack
+  dependsOn:
+    - name: lldap        # authelia 依赖 lldap 就绪
+      namespace: flux-system
+  chart:
+    spec:
+      chart: authelia
+      version: ">=0.9.0 <1.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: authelia
+        namespace: flux-system
+  values:
+    domain: ${CLUSTER_DOMAIN}
+    ingress:
+      enabled: true
+      subdomain: auth
+    pod:
+      extraEnvs:
+        - name: AUTHELIA_AUTHENTICATION_BACKEND_LDAP_URL
+          value: ldap://lldap.lldap-stack.svc.cluster.local:3890

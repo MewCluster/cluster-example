@@ -1,0 +1,13 @@
+# node-1 的 k3s 节点配置（控制平面）
+# 部署路径：/etc/rancher/k3s/config.yaml
+node-name: node-1
+role: server
+cluster-init: true
+tls-san:
+  - 192.168.1.10
+  - k8s.example.com
+node-label:
+  - "topology.kubernetes.io/zone=a"
+  - "node-role/control-plane=true"
+node-taint:
+  - "node-role.kubernetes.io/control-plane:NoSchedule"
