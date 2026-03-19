@@ -5,3 +5,5 @@ metadata:
   namespace: flux-system
 data:
   DOMAIN: "k3s.loc"
+  POSTGRESQL_INSTANCES: "3"
+  POSTGRESQL_STORAGE_SIZE: "10Gi"
