@@ -5,7 +5,7 @@
 ## 目录结构
 
 ```
-├── .node-config/  # 集群节点配置
+├── .nodes/  # 集群节点配置
 ├── apps/          # 应用层
 ├── config/        # cluster-vars
 ├── environments/  # Flux 控制平面入口，按集群分目录
