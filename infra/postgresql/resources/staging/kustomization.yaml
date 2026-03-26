@@ -5,3 +5,8 @@ resources:
   - ../base/lldap/
   - secret.lldap.yaml
 # staging 仅部署 lldap，不需要 grafana
+patches:
+  - path: lldap/managed.yaml
+    target:
+      kind: Cluster
+      name: pg-shared

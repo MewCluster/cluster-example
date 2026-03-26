@@ -5,3 +5,12 @@ resources:
   - secret.lldap.yaml
   - secret.grafana.yaml
 # production 部署 base 中定义的所有服务
+patches:
+  - path: grafana/managed.yaml
+    target:
+      kind: Cluster
+      name: pg-shared
+  - path: lldap/managed.yaml
+    target:
+      kind: Cluster
+      name: pg-shared
