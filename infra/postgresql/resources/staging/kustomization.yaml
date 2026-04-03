@@ -6,7 +6,15 @@ resources:
   - secret.lldap.yaml
 # staging 仅部署 lldap，不需要 grafana
 patches:
-  - path: lldap/managed.yaml
-    target:
+  - target:
       kind: Cluster
       name: pg-shared
+    patch: |
+      - op: add
+        path: /spec/managed/roles/-
+        value:
+          name: ${PG_USER_LLDAP}
+          ensure: present
+          login: true
+          passwordSecret:
+            name: pg-lldap-credentials

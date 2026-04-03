@@ -6,11 +6,27 @@ resources:
   - secret.grafana.yaml
 # production 部署 base 中定义的所有服务
 patches:
-  - path: grafana/managed.yaml
-    target:
+  - target:
       kind: Cluster
       name: pg-shared
-  - path: lldap/managed.yaml
-    target:
+    patch: |
+      - op: add
+        path: /spec/managed/roles/-
+        value:
+          name: ${PG_USER_GRAFANA}
+          ensure: present
+          login: true
+          passwordSecret:
+            name: pg-grafana-credentials
+  - target:
       kind: Cluster
       name: pg-shared
+    patch: |
+      - op: add
+        path: /spec/managed/roles/-
+        value:
+          name: ${PG_USER_LLDAP}
+          ensure: present
+          login: true
+          passwordSecret:
+            name: pg-lldap-credentials
